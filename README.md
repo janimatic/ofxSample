@@ -12,3 +12,11 @@ replaced with https://github.com/AcademySoftwareFoundation/openfx/blob/main/Exam
 
 * added crossplatform CMake files (tested on windonws / vs2019 x64 only)
 
+* use the standard envvar OFX_PLUGIN_PATH to deply the binary, if defined
+
+TODO
+----
+
+copy the lib with ofx extention
+copy in the bundle directory
+copy the bundle directory in OFX_PLUGIN_PATH if defined
