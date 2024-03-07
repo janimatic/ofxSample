@@ -10,9 +10,9 @@ replaced with https://github.com/AcademySoftwareFoundation/openfx/blob/main/Exam
 
 * opencl + openfx libs included (openfx files might be outdated ! comming from bmd)
 
-* added crossplatform CMake files (tested on windonws / vs2019 x64 only)
+* added crossplatform CMake files (tested on windows / vs2019 x64 only)
 
-* use the standard envvar OFX_PLUGIN_PATH to deply the binary, if defined
+* use the standard envvar OFX_PLUGIN_PATH to deploy the binary, if defined (but that's not finished, see below)
 
 TODO
 ----
