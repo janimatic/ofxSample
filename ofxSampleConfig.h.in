@@ -1,0 +1,3 @@
+// the configured options and settings
+#define ofxSample_VERSION_MAJOR @ofxSample_VERSION_MAJOR@
+#define ofxSample_VERSION_MINOR @ofxSample_VERSION_MINOR@

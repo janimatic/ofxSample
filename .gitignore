@@ -1,0 +1,12 @@
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+*.lib
+
+# test files
+*.xcl
+
+# Generated directories
+bin/
