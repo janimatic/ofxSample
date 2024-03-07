@@ -17,6 +17,6 @@ replaced with https://github.com/AcademySoftwareFoundation/openfx/blob/main/Exam
 TODO
 ----
 
-copy the lib with ofx extention
-copy in the bundle directory
-copy the bundle directory in OFX_PLUGIN_PATH if defined
+* copy the lib with ofx extention
+* copy in the bundle directory
+* copy the bundle directory in OFX_PLUGIN_PATH if defined
