@@ -55,8 +55,6 @@ endif()
 
 find_package(OpenCL REQUIRED)
 
-# add_executable(${CMAKE_PROJECT_NAME} ${ofxSample_SOURCES} ${ofxSample_HEADERS}) 
-add_library(${CMAKE_PROJECT_NAME} SHARED ${ofxSample_SOURCES} ${ofxSample_HEADERS})
 
 # target_link_libraries(${CMAKE_PROJECT_NAME} ofxLib "${OpenCL_LIBRARY}") #  error: No rule to make target
 # get_filename_component(OpenCL_LIBRARY_DIR ${OpenCL_LIBRARY} DIRECTORY )
@@ -69,6 +67,10 @@ add_library(OpenCLlib SHARED IMPORTED)
 set_target_properties(OpenCLlib PROPERTIES 
     IMPORTED_IMPLIB "${OpenCL_LIBRARY}"
 )
+
+# add_executable(${CMAKE_PROJECT_NAME} ${ofxSample_SOURCES} ${ofxSample_HEADERS}) 
+add_library(${CMAKE_PROJECT_NAME} SHARED ${ofxSample_SOURCES} ${ofxSample_HEADERS})
+
 # set_property(TARGET OpenCLlib PROPERTY IMPORTED_LOCATION "${OpenCL_LIBRARY}")
 target_link_libraries(${CMAKE_PROJECT_NAME} ofxLib OpenCLlib)
 
