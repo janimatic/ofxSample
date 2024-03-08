@@ -4,6 +4,15 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 configure_file(ofxSampleConfig.h.in ofxSampleConfig.h)
 
+# if(WIN32)
+# attempt to fix a strange github workflow error:
+# LINK : fatal error LNK1181: cannot open input file 'OpenCL.lib' ???
+list(APPEND CMAKE_PREFIX_PATH "${PROJECT_SOURCE_DIR}/OpenCL/lib")
+message( "CMAKE_PREFIX_PATH : ${CMAKE_PREFIX_PATH}")
+# endif()
+# find_package(OpenCL REQUIRED)
+
+
 file(GLOB ofxLib_HEADERS
     Support/include/*.h
     OpenFX-1.4/include/*.h
@@ -32,13 +41,6 @@ file(GLOB ofxSample_HEADERS
 file(GLOB ofxSample_SOURCES
     src/*.cpp
 )
-
-if(WIN32)
-# attempt to fix a strange github workflow error:
-# LINK : fatal error LNK1181: cannot open input file 'OpenCL.lib' ???
-list(APPEND CMAKE_PREFIX_PATH "${PROJECT_SOURCE_DIR}/OpenCL/lib")
-message( "CMAKE_PREFIX_PATH : ${CMAKE_PREFIX_PATH}")
-endif()
 
 # link_directories must be before add_executable/add_library
 link_directories(OpenCL/lib)
