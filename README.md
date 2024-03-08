@@ -8,15 +8,13 @@ replaced with https://github.com/AcademySoftwareFoundation/openfx/blob/main/Exam
 
 * cuda support is turned off (opencl on)
 
-* opencl + openfx libs included (openfx files might be outdated ! comming from bmd)
+* opencl + openfx libs included (openfx files might be outdated ! coming from bmd)
 
 * added crossplatform CMake files (tested on windows / vs2019 x64 only)
 
 * use the standard envvar OFX_PLUGIN_PATH to deploy the binary, if defined (but that's not finished, see below)
 
-TODO
-----
+* copy the lib with ofx extention in the bundle directory
 
-* copy the lib with ofx extention
-* copy in the bundle directory
-* copy the bundle directory in OFX_PLUGIN_PATH if defined
+* copy the bundle directory in OFX_PLUGIN_PATH if defined else in standard ofx plugin location
+That is not recommended to do an install during the build process, but auto-install so handy while developping c++ plugins...
