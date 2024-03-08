@@ -32,7 +32,7 @@
 #include "ofxMemory.h"
 #include "ofxMultiThread.h"
 
-#include "ofxUtilities.H" // example support utils
+#include "ofxUtilities.h" // example support utils
 
 #if defined __APPLE__ || defined __linux__ || defined __FreeBSD__
 #  define EXPORT __attribute__((visibility("default")))
