@@ -8,9 +8,11 @@ replaced with https://github.com/AcademySoftwareFoundation/openfx/blob/main/Exam
 
 * cuda support is turned off (opencl on)
 
-* opencl + openfx libs included
+* openfx libs included
 
-Openfx files, coming from bmd, might be outdated. But it seem to use the official latest 1.4, slightly modified.
+* opencl libs for windows included (see below for linux)
+
+Openfx files, coming from bmd, might be outdated. But it seems to use the official latest 1.4, slightly modified.
 Copying files from https://github.com/AcademySoftwareFoundation/openfx gave me build errors
 on ofxBinary loadLibrary under windows , that didn't occur with bmd provided files.
 
@@ -33,17 +35,17 @@ Building
         - Microsoft Visual Studio (tested on vs2019)
     - CMake https://cmake.org/download/
 
-* On linux (and apple?)
+* On linux
 the opencl libs should be installed with :
 ```
 sudo apt install ocl-icd-opencl-dev
 ```
 
 #### 2. Download the XClip source code
-You can download source code archives from [GitHub](https://www.github.com/janimatic/XClip) or use `git` to clone the repository.
+You can download source code archives from [GitHub](https://www.github.com/janimatic/ofxSample) or use `git` to clone the repository.
 ```
-> git clone https://www.github.com/janimatic/XClip
-Cloning into 'xclip'...
+> git clone https://www.github.com/janimatic/ofxSample
+Cloning into 'ofxSample'...
 ```
 
 #### 3. Run cmake
