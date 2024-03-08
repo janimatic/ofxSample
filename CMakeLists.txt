@@ -33,6 +33,13 @@ file(GLOB ofxSample_SOURCES
     src/*.cpp
 )
 
+if(WIN32)
+# attempt to fix a strange github workflow error:
+# LINK : fatal error LNK1181: cannot open input file 'OpenCL.lib' ???
+list(APPEND CMAKE_PREFIX_PATH "${PROJECT_SOURCE_DIR}/OpenCL/lib")
+message( "CMAKE_PREFIX_PATH : ${CMAKE_PREFIX_PATH}")
+endif()
+
 # link_directories must be before add_executable/add_library
 link_directories(OpenCL/lib)
 
