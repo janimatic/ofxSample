@@ -23,6 +23,10 @@ jobs:
     
     - uses: actions/checkout@v3
     
+    # https://askubuntu.com/questions/796770/how-to-install-libopencl-so-on-ubuntu
+    - name: Install ocl-icd-opencl-dev
+      run: sudo apt install ocl-icd-opencl-dev
+      
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
