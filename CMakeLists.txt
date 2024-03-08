@@ -65,6 +65,7 @@ add_library(OpenCLlib SHARED IMPORTED)
 # set_target_properties(OpenCLlib PROPERTIES IMPORTED_LOCATION "${OpenCL_LIBRARY}")
 # https://discourse.cmake.org/t/imported-implib-not-set-for-imported-target/5398/6
 set_target_properties(OpenCLlib PROPERTIES 
+    IMPORTED_LOCATION_RELEASE "${OpenCL_LIBRARY}"
     IMPORTED_IMPLIB "${OpenCL_LIBRARY}"
 )
 
