@@ -58,7 +58,7 @@ find_package(OpenCL REQUIRED)
 # add_executable(${CMAKE_PROJECT_NAME} ${ofxSample_SOURCES} ${ofxSample_HEADERS}) 
 add_library(${CMAKE_PROJECT_NAME} SHARED ${ofxSample_SOURCES} ${ofxSample_HEADERS})
 
-target_link_libraries(${CMAKE_PROJECT_NAME} ofxLib ${OpenCL_LIBRARY})
+target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC ofxLib "${OpenCL_LIBRARY}")
 
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
     Support/include/
