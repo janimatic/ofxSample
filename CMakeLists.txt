@@ -58,11 +58,19 @@ find_package(OpenCL REQUIRED)
 # add_executable(${CMAKE_PROJECT_NAME} ${ofxSample_SOURCES} ${ofxSample_HEADERS}) 
 add_library(${CMAKE_PROJECT_NAME} SHARED ${ofxSample_SOURCES} ${ofxSample_HEADERS})
 
-# target_link_libraries(${CMAKE_PROJECT_NAME} ofxLib "${OpenCL_LIBRARY}")
-get_filename_component(OpenCL_LIBRARY_DIR ${OpenCL_LIBRARY} DIRECTORY )
-get_filename_component(OpenCL_LIBRARY_NAME ${OpenCL_LIBRARY} NAME )
-target_link_directories(${CMAKE_PROJECT_NAME} PUBLIC ${OpenCL_LIBRARY_DIR})
-target_link_libraries(${CMAKE_PROJECT_NAME} ofxLib ${OpenCL_LIBRARY_NAME})
+# target_link_libraries(${CMAKE_PROJECT_NAME} ofxLib "${OpenCL_LIBRARY}") #  error: No rule to make target
+# get_filename_component(OpenCL_LIBRARY_DIR ${OpenCL_LIBRARY} DIRECTORY )
+# get_filename_component(OpenCL_LIBRARY_NAME ${OpenCL_LIBRARY} NAME )
+# target_link_directories(${CMAKE_PROJECT_NAME} PUBLIC ${OpenCL_LIBRARY_DIR})
+# target_link_libraries(${CMAKE_PROJECT_NAME} ofxLib ${OpenCL_LIBRARY_NAME}) # cannot find -lOpenCL: No such file or directory
+add_library(OpenCLlib SHARED IMPORTED)
+# set_target_properties(OpenCLlib PROPERTIES IMPORTED_LOCATION "${OpenCL_LIBRARY}")
+# https://discourse.cmake.org/t/imported-implib-not-set-for-imported-target/5398/6
+set_target_properties(OpenCLlib PROPERTIES 
+    IMPORTED_IMPLIB "${OpenCL_LIBRARY}"
+)
+# set_property(TARGET OpenCLlib PROPERTY IMPORTED_LOCATION "${OpenCL_LIBRARY}")
+target_link_libraries(${CMAKE_PROJECT_NAME} ofxLib OpenCLlib)
 
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
     Support/include/
