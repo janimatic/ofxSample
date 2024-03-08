@@ -3,7 +3,6 @@
 *.dll
 *.so
 *.dylib
-*.lib
 
 # test files
 *.xcl
