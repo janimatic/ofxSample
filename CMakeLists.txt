@@ -4,18 +4,6 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 configure_file(ofxSampleConfig.h.in ofxSampleConfig.h)
 
-# if(WIN32)
-# attempt to fix a strange github workflow error:
-# LINK : fatal error LNK1181: cannot open input file 'OpenCL.lib' ???
-# list(APPEND CMAKE_PREFIX_PATH "${PROJECT_SOURCE_DIR}/OpenCL/lib")
-# message( "CMAKE_PREFIX_PATH : ${CMAKE_PREFIX_PATH}")
-# endif()
-# find_package(OpenCL REQUIRED)
-# if(WIN32)
-# list(APPEND CMAKE_PREFIX_PATH "C:/OpenCLdev")
-# message( "CMAKE_PREFIX_PATH : ${CMAKE_PREFIX_PATH}")
-# endif()
-
 file(GLOB ofxLib_HEADERS
     Support/include/*.h
     OpenFX-1.4/include/*.h
@@ -31,7 +19,7 @@ set(ofxLib_SOURCES
     Support/Library/ofxsProperty.cpp
     Support/Library/ofxsPropertyValidation.cpp
 )
-# add_library(ofxLib SHARED ${ofxLib_SOURCES} ${ofxLib_HEADERS})
+
 add_library(ofxLib STATIC ${ofxLib_SOURCES} ${ofxLib_HEADERS})
 target_include_directories(ofxLib PUBLIC
     Support/include/
@@ -52,27 +40,26 @@ file(GLOB ofxSample_SOURCES
 
 set(OpenCL_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/OpenCL/include)
 message( "OpenCL_INCLUDE_DIR : ${OpenCL_INCLUDE_DIR}")
+if(WIN32)
 set(OpenCL_LIBRARY ${PROJECT_SOURCE_DIR}/OpenCL/lib/x86_64/OpenCL.lib)
 message( "OpenCL_LIBRARY : ${OpenCL_LIBRARY}")
+elseif(UNIX)
+set(OpenCL_LIBRARY ${PROJECT_SOURCE_DIR}/OpenCL/lib/x86_64/libOpenCL.so)
+message( "OpenCL_LIBRARY : ${OpenCL_LIBRARY}")
+elseif(APPLE)
+set(OpenCL_LIBRARY ${PROJECT_SOURCE_DIR}/OpenCL/lib/x86_64/libOpenCL.so)
+message( "OpenCL_LIBRARY : ${OpenCL_LIBRARY}")
+else()
+message( "OpenCL_LIBRARY : unknown platform...")
+endif()
 
 find_package(OpenCL REQUIRED)
 
 # add_executable(${CMAKE_PROJECT_NAME} ${ofxSample_SOURCES} ${ofxSample_HEADERS}) 
 add_library(${CMAKE_PROJECT_NAME} SHARED ${ofxSample_SOURCES} ${ofxSample_HEADERS})
-# link the new ofxLib target with the ${CMAKE_PROJECT_NAME} target
 
-# target_link_libraries(${CMAKE_PROJECT_NAME} ofxLib OpenCL::OpenCL)
 target_link_libraries(${CMAKE_PROJECT_NAME} ofxLib ${OpenCL_LIBRARY})
 
-# target_link_libraries( ${CMAKE_PROJECT_NAME} PRIVATE 
-        # ofxLib
-        # OpenCL
-# )
-# target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
-    # Support/include/
-    # OpenFX-1.4/include/
-    # OpenCL/include
-# )
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
     Support/include/
     OpenFX-1.4/include/
