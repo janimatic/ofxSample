@@ -37,7 +37,7 @@ file(GLOB ofxSample_SOURCES
 # link_directories(OpenCL/lib)
 # link_directories(OpenCL/lib/x86_64)
 
-
+# On UNIX/APPLE, use sudo apt install ocl-icd-opencl-dev (like the github workflow)
 set(OpenCL_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/OpenCL/include)
 message( "OpenCL_INCLUDE_DIR : ${OpenCL_INCLUDE_DIR}")
 if(WIN32)
@@ -109,6 +109,9 @@ else()
   set(ARCHDIR "unknown-arch")
 endif()
 
+option(AUTO_DEPLOY "Install the plugin on build" OFF)
+
+if(AUTO_DEPLOY)
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES SUFFIX ".ofx" PREFIX "")
 if (DEFINED ENV{OFX_PLUGIN_PATH})
 # use the standard envvar OFX_PLUGIN_PATH (custom plugin location) this could avoid write permissions problems
@@ -129,4 +132,5 @@ add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
                                     ${PLUGINDIR}/${CMAKE_PROJECT_NAME}.ofx.bundle/Contents/${ARCHDIR}/$<TARGET_FILE_NAME:${CMAKE_PROJECT_NAME}>
 )
 # install(TARGETS ${TARGET} DESTINATION "${PLUGINDIR}/${TARGET}.ofx.bundle/Contents/${ARCHDIR}")
+endif()
 endif()
