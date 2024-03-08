@@ -11,10 +11,10 @@ configure_file(ofxSampleConfig.h.in ofxSampleConfig.h)
 # message( "CMAKE_PREFIX_PATH : ${CMAKE_PREFIX_PATH}")
 # endif()
 # find_package(OpenCL REQUIRED)
-if(WIN32)
-list(APPEND CMAKE_PREFIX_PATH "C:/OpenCLdev")
-message( "CMAKE_PREFIX_PATH : ${CMAKE_PREFIX_PATH}")
-endif()
+# if(WIN32)
+# list(APPEND CMAKE_PREFIX_PATH "C:/OpenCLdev")
+# message( "CMAKE_PREFIX_PATH : ${CMAKE_PREFIX_PATH}")
+# endif()
 
 file(GLOB ofxLib_HEADERS
     Support/include/*.h
@@ -47,19 +47,36 @@ file(GLOB ofxSample_SOURCES
 
 # link_directories must be before add_executable/add_library
 # link_directories(OpenCL/lib)
-link_directories(OpenCL/lib/x86_64)
+# link_directories(OpenCL/lib/x86_64)
+
+
+set(OpenCL_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/OpenCL/include)
+message( "OpenCL_INCLUDE_DIR : ${OpenCL_INCLUDE_DIR}")
+set(OpenCL_LIBRARY ${PROJECT_SOURCE_DIR}/OpenCL/lib/x86_64/OpenCL.lib)
+message( "OpenCL_LIBRARY : ${OpenCL_LIBRARY}")
+
+find_package(OpenCL REQUIRED)
 
 # add_executable(${CMAKE_PROJECT_NAME} ${ofxSample_SOURCES} ${ofxSample_HEADERS}) 
 add_library(${CMAKE_PROJECT_NAME} SHARED ${ofxSample_SOURCES} ${ofxSample_HEADERS})
 # link the new ofxLib target with the ${CMAKE_PROJECT_NAME} target
-target_link_libraries( ${CMAKE_PROJECT_NAME} PRIVATE 
-        ofxLib
-        OpenCL
-)
+
+# target_link_libraries(${CMAKE_PROJECT_NAME} ofxLib OpenCL::OpenCL)
+target_link_libraries(${CMAKE_PROJECT_NAME} ofxLib ${OpenCL_LIBRARY})
+
+# target_link_libraries( ${CMAKE_PROJECT_NAME} PRIVATE 
+        # ofxLib
+        # OpenCL
+# )
+# target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
+    # Support/include/
+    # OpenFX-1.4/include/
+    # OpenCL/include
+# )
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
     Support/include/
     OpenFX-1.4/include/
-    OpenCL/include
+    "${OpenCL_INCLUDE_DIR}"
 )
 
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
