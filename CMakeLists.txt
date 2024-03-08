@@ -7,11 +7,14 @@ configure_file(ofxSampleConfig.h.in ofxSampleConfig.h)
 # if(WIN32)
 # attempt to fix a strange github workflow error:
 # LINK : fatal error LNK1181: cannot open input file 'OpenCL.lib' ???
-list(APPEND CMAKE_PREFIX_PATH "${PROJECT_SOURCE_DIR}/OpenCL/lib")
-message( "CMAKE_PREFIX_PATH : ${CMAKE_PREFIX_PATH}")
+# list(APPEND CMAKE_PREFIX_PATH "${PROJECT_SOURCE_DIR}/OpenCL/lib")
+# message( "CMAKE_PREFIX_PATH : ${CMAKE_PREFIX_PATH}")
 # endif()
 # find_package(OpenCL REQUIRED)
-
+if(WIN32)
+list(APPEND CMAKE_PREFIX_PATH "C:/OpenCLdev")
+message( "CMAKE_PREFIX_PATH : ${CMAKE_PREFIX_PATH}")
+endif()
 
 file(GLOB ofxLib_HEADERS
     Support/include/*.h
@@ -43,7 +46,8 @@ file(GLOB ofxSample_SOURCES
 )
 
 # link_directories must be before add_executable/add_library
-link_directories(OpenCL/lib)
+# link_directories(OpenCL/lib)
+link_directories(OpenCL/lib/x86_64)
 
 # add_executable(${CMAKE_PROJECT_NAME} ${ofxSample_SOURCES} ${ofxSample_HEADERS}) 
 add_library(${CMAKE_PROJECT_NAME} SHARED ${ofxSample_SOURCES} ${ofxSample_HEADERS})

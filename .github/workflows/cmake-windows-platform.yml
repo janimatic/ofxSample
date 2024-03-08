@@ -24,6 +24,12 @@ jobs:
     
     - uses: actions/checkout@v3
     
+    - name: Install OpenCL SDK...
+      run: |
+        curl -o lightOCLSDK.zip -L https://github.com/GPUOpen-LibrariesAndSDKs/OCL-SDK/files/1406216/lightOCLSDK.zip
+        mkdir "C:\OpenCLdev"
+        tar -xf lua-5.1.5_Win64_dll17_lib.zip -C "C:\OpenCLdev"
+
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
