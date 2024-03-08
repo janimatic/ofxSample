@@ -8,7 +8,11 @@ replaced with https://github.com/AcademySoftwareFoundation/openfx/blob/main/Exam
 
 * cuda support is turned off (opencl on)
 
-* opencl + openfx libs included (openfx files might be outdated ! coming from bmd)
+* opencl + openfx libs included
+
+Openfx files, coming from bmd, might be outdated. But it seem to use the official latest 1.4, slightly modified.
+Copying files from https://github.com/AcademySoftwareFoundation/openfx gave me build errors
+on ofxBinary loadLibrary under windows , that didn't occur with bmd provided files.
 
 * added crossplatform CMake files (tested on windows / vs2019 x64 only)
 
