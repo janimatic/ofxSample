@@ -36,20 +36,20 @@ file(GLOB ofxSample_SOURCES
 # link_directories must be before add_executable/add_library
 link_directories(OpenCL/lib)
 
-# add_executable(ofxSample ${ofxSample_SOURCES} ${ofxSample_HEADERS}) 
-add_library(ofxSample SHARED ${ofxSample_SOURCES} ${ofxSample_HEADERS})
-# link the new ofxLib target with the ofxSample target
-target_link_libraries( ofxSample PRIVATE 
+# add_executable(${CMAKE_PROJECT_NAME} ${ofxSample_SOURCES} ${ofxSample_HEADERS}) 
+add_library(${CMAKE_PROJECT_NAME} SHARED ${ofxSample_SOURCES} ${ofxSample_HEADERS})
+# link the new ofxLib target with the ${CMAKE_PROJECT_NAME} target
+target_link_libraries( ${CMAKE_PROJECT_NAME} PRIVATE 
         ofxLib
         OpenCL
 )
-target_include_directories(ofxSample PUBLIC
+target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
     Support/include/
     OpenFX-1.4/include/
     OpenCL/include
 )
 
-target_include_directories(ofxSample PUBLIC
+target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
                            "${PROJECT_BINARY_DIR}"
 )
 
@@ -59,15 +59,40 @@ target_include_directories(ofxSample PUBLIC
 # https://www.liftgammagain.com/forum/index.php?threads/dctls-and-resolve-ofx.7046/
 # https://gist.github.com/gavinb/c993f71cf33d2354515c4452a3f8ef30
 
-# use the standard envvar OFX_PLUGIN_PATH
-# TODO : create the bundle
-if (DEFINED ENV{OFX_PLUGIN_PATH})
-set(OFX_PLUGIN_PATH $ENV{OFX_PLUGIN_PATH})
-message( "The ofx plugin will be installed in OFX_PLUGIN_PATH : ${OFX_PLUGIN_PATH}")
-add_custom_command(TARGET ofxSample POST_BUILD
-    COMMAND ${CMAKE_COMMAND}  -E copy_if_different $<TARGET_FILE:ofxSample>
-                                    ${OFX_PLUGIN_PATH}/$<TARGET_FILE_NAME:ofxSample>
-)
+# create the bundle
+# copied from https://github.com/AcademySoftwareFoundation/openfx/blob/36cf59759b8262250a3e2ca23e021e12e6ab9396/cmake/OpenFX.cmake#L25
+if(APPLE)
+  set(PLUGINDIR "/Library/OFX/Plugins")
+  set(ARCHDIR "MacOS")
+elseif(WIN32)
+  set(PLUGINDIR "C:/Program Files (x86)/Common Files/OFX/Plugins")
+  set(ARCHDIR "Win64")
+elseif(UNIX)
+  set(PLUGINDIR "/usr/OFX/Plugins")
+  set(ARCHDIR "Linux-x86-64")
 else()
-message( "The OFX_PLUGIN_PATH env var is not defined : the ofx plugin won't be installed")
+  set(PLUGINDIR "/unknown-os")
+  set(ARCHDIR "unknown-arch")
+endif()
+
+set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES SUFFIX ".ofx" PREFIX "")
+if (DEFINED ENV{OFX_PLUGIN_PATH})
+# use the standard envvar OFX_PLUGIN_PATH (custom plugin location) this could avoid write permissions problems
+# set(OFX_PLUGIN_PATH $ENV{OFX_PLUGIN_PATH})
+# avoid backslashes under windows...
+file(TO_CMAKE_PATH $ENV{OFX_PLUGIN_PATH} OFX_PLUGIN_PATH)
+message( "The ofx plugin will be installed in OFX_PLUGIN_PATH : ${OFX_PLUGIN_PATH}/${CMAKE_PROJECT_NAME}.ofx.bundle/Contents/${ARCHDIR}")
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND}  -E copy_if_different $<TARGET_FILE:${CMAKE_PROJECT_NAME}>
+                                    ${OFX_PLUGIN_PATH}/${CMAKE_PROJECT_NAME}.ofx.bundle/Contents/${ARCHDIR}/$<TARGET_FILE_NAME:${CMAKE_PROJECT_NAME}>
+)
+# install(TARGETS ${TARGET} DESTINATION "${OFX_PLUGIN_PATH}/${TARGET}.ofx.bundle/Contents/${ARCHDIR}")
+else()
+# use the PLUGINDIR (standard plugin location)
+message( "The OFX_PLUGIN_PATH env var is not defined : the ofx plugin will be installed in standard location : ${PLUGINDIR}/${CMAKE_PROJECT_NAME}.ofx.bundle/Contents/${ARCHDIR}")
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND}  -E copy_if_different $<TARGET_FILE:${CMAKE_PROJECT_NAME}>
+                                    ${PLUGINDIR}/${CMAKE_PROJECT_NAME}.ofx.bundle/Contents/${ARCHDIR}/$<TARGET_FILE_NAME:${CMAKE_PROJECT_NAME}>
+)
+# install(TARGETS ${TARGET} DESTINATION "${PLUGINDIR}/${TARGET}.ofx.bundle/Contents/${ARCHDIR}")
 endif()
