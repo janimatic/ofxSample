@@ -19,7 +19,7 @@ Openfx files, coming from bmd, seem to use the official latest 1.4, slightly mod
 Copying files from https://github.com/AcademySoftwareFoundation/openfx gave me build errors
 on ofxBinary loadLibrary under windows , that didn't occur with bmd provided files.
 
-* added crossplatform CMake files (tested on windows / vs2019 x64 only)
+* added crossplatform CMake files (github actions for windows and linux only, I couldn't make the macos 12 workflow to build)
 
 * use the standard envvar OFX_PLUGIN_PATH to deploy the binary, if defined (but that's not finished, see below)
 
@@ -38,13 +38,26 @@ Building
         - Microsoft Visual Studio (tested on vs2019)
     - CMake https://cmake.org/download/
 
+* On windows
+No action needed, the OpenCL 2.0 libs are provided
+
 * On linux
 the opencl libs should be installed with :
 ```
 sudo apt install ocl-icd-opencl-dev
 ```
 
-#### 2. Download the XClip source code
+* On mac
+I tried to installe the opencl libs with :
+```
+brew install ocl-icd
+```
+but i still get a build error
+```
+make[2]: *** No rule to make target `/usr/lib/x86_64-linux-gnu/libOpenCL.so', needed by `libofxSample.dylib'.  Stop.
+```
+
+#### 2. Download the ofxSample  source code
 You can download source code archives from [GitHub](https://www.github.com/janimatic/ofxSample) or use `git` to clone the repository.
 ```
 > git clone https://www.github.com/janimatic/ofxSample
@@ -68,6 +81,8 @@ Cloning into 'ofxSample'...
 
 Github worflows
 ---------------
+![cmake linux workflow](https://github.com/janimatic/ofxSample/actions/workflows/cmake-linux-platform.yml/badge.svg)
+![cmake windows workflow](https://github.com/janimatic/ofxSample/actions/workflows/cmake-windows-platform.yml/badge.svg)
+![cmake mac workflow](https://github.com/janimatic/ofxSample/actions/workflows/cmake-mac-platform.yml/badge.svg)
 
-![cmake linux workflow](https://github.com/janimatic/xclip/actions/workflows/cmake-linux-platform.yml/badge.svg)
-![cmake windows workflow](https://github.com/janimatic/xclip/actions/workflows/cmake-windows-platform.yml/badge.svg)
+I couldn't make the macos 12 workflow to build so i disabled it... please contribute if you can.
