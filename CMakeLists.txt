@@ -49,7 +49,10 @@ set(OpenCL_LIBRARY /usr/lib/x86_64-linux-gnu/libOpenCL.so)
 message( "OpenCL_LIBRARY : ${OpenCL_LIBRARY}")
 elseif(APPLE)
 # set(OpenCL_LIBRARY ${PROJECT_SOURCE_DIR}/OpenCL/lib/x86_64/libOpenCL.so)
-set(OpenCL_LIBRARY /usr/lib/x86_64-linux-gnu/libOpenCL.so)
+ # For compilers to find ocl-icd you may need to set:
+  # export LDFLAGS="-L/usr/local/opt/ocl-icd/lib"
+  # export CPPFLAGS="-I/usr/local/opt/ocl-icd/include"
+set(OpenCL_LIBRARY /usr/local/opt/ocl-icd/lib/libOpenCL.so)
 message( "OpenCL_LIBRARY : ${OpenCL_LIBRARY}")
 else()
 message( "OpenCL_LIBRARY : unknown platform...")
