@@ -102,7 +102,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
 if(UNIX AND NOT APPLE)
 # /usr/bin/ld: libofxLib.a(ofxsCore.cpp.o): relocation R_X86_64_PC32 against symbol `_ZN3OFX9Exception5SuiteD1Ev' can not be used when making a shared object; recompile with -fPIC
 # https://stackoverflow.com/questions/5311515/gcc-fpic-option
-target_compile_options(${CMAKE_PROJECT_NAME} -fPIC)
+target_compile_options(${CMAKE_PROJECT_NAME} PUBLIC "-fPIC")
 endif()
 
 # error LNK2019: "void __cdecl RunCudaKernel
