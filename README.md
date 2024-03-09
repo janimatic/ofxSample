@@ -36,7 +36,7 @@ Building
     - CMake https://cmake.org/download/
 
 * On windows
-No action needed, the OpenCL 2.0 libs areprovided
+No action needed, the OpenCL 2.0 libs are provided
 
 * On linux
 the opencl libs should be installed with :
