@@ -1,7 +1,8 @@
 sample openfx plugin
 --------------------
 
-based on bmd Developper/OFX folder
+based on Blackmagic Resolve inlcuded examples found in Developper/OFX folder
+
 * GainPlugin with cuda disabled
 
 * To use the OpenCL in Resolve, force to use OpenCL instead of Cuda in the preferences :
@@ -85,4 +86,4 @@ Github worflows
 ![cmake windows workflow](https://github.com/janimatic/ofxSample/actions/workflows/cmake-windows-platform.yml/badge.svg)
 ![cmake mac workflow](https://github.com/janimatic/ofxSample/actions/workflows/cmake-mac-platform.yml/badge.svg)
 
-I couldn't make the macos 12 workflow to build so i disabled it... please contribute if you can.
+I couldn't make the macos 12 workflow to build so i disabled it... please contribute if you can...
