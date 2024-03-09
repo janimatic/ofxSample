@@ -20,7 +20,10 @@ on ofxBinary loadLibrary under windows , that didn't occur with bmd provided fil
 
 * added crossplatform CMake files (github actions for windows and linux only, I couldn't make the macos 12 workflow to build)
 
-* use the standard envvar OFX_PLUGIN_PATH to deploy the binary, if defined (but that's not finished, see below)
+* Check AUTO_DEPLOY in cmake if you find handy to auto install the plugin on build like I do...
+
+The standard envvar OFX_PLUGIN_PATH will be used to deploy the binary, if defined,
+otherwise the standard openfx plugin location (which might have permissions restrictions that makes deployment fails)
 
 * copy the lib with ofx extention in the bundle directory
 
@@ -47,7 +50,7 @@ sudo apt install ocl-icd-opencl-dev
 ```
 
 * On mac
-I tried to installe the opencl libs with :
+I tried to install the opencl libs with :
 ```
 brew install ocl-icd
 ```
