@@ -16,7 +16,7 @@ Openfx files, coming from bmd, might be outdated. But it seems to use the offici
 Copying files from https://github.com/AcademySoftwareFoundation/openfx gave me build errors
 on ofxBinary loadLibrary under windows , that didn't occur with bmd provided files.
 
-* added crossplatform CMake files (tested on windows / vs2019 x64 only)
+* added crossplatform CMake files (github actions for windows and linux only, I couldn't make the macos 12 workflow to build)
 
 * use the standard envvar OFX_PLUGIN_PATH to deploy the binary, if defined (but that's not finished, see below)
 
@@ -35,10 +35,23 @@ Building
         - Microsoft Visual Studio (tested on vs2019)
     - CMake https://cmake.org/download/
 
+* On windows
+No action needed, the OpenCL 2.0 libs areprovided
+
 * On linux
 the opencl libs should be installed with :
 ```
 sudo apt install ocl-icd-opencl-dev
+```
+
+* On mac
+I tried to installe the opencl libs with :
+```
+brew install ocl-icd
+```
+but i still get a build error
+```
+make[2]: *** No rule to make target `/usr/lib/x86_64-linux-gnu/libOpenCL.so', needed by `libofxSample.dylib'.  Stop.
 ```
 
 #### 2. Download the ofxSample  source code
