@@ -69,6 +69,11 @@ endif()
 
 find_package(OpenCL REQUIRED)
 
+if(UNIX AND NOT APPLE)
+# /usr/bin/ld: libofxLib.a(ofxsCore.cpp.o): relocation R_X86_64_PC32 against symbol `_ZN3OFX9Exception5SuiteD1Ev' can not be used when making a shared object; recompile with -fPIC
+# https://stackoverflow.com/questions/5311515/gcc-fpic-option
+add_compile_options(-fPIC)
+endif()
 
 # target_link_libraries(${CMAKE_PROJECT_NAME} ofxLib "${OpenCL_LIBRARY}") #  error: No rule to make target
 # get_filename_component(OpenCL_LIBRARY_DIR ${OpenCL_LIBRARY} DIRECTORY )
