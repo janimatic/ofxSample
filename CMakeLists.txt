@@ -26,11 +26,17 @@ target_include_directories(ofxLib PUBLIC
     OpenFX-1.4/include/
 )
 
+# file(GLOB ofxSample_HEADERS
+    # basicExample/*.h
+# )
+# file(GLOB ofxSample_SOURCES
+    # basicExample/*.cpp
+# )
 file(GLOB ofxSample_HEADERS
-    src/*.h
+    openclExample/*.h
 )
 file(GLOB ofxSample_SOURCES
-    src/*.cpp
+    openclExample/*.cpp
 )
 
 # link_directories must be before add_executable/add_library
@@ -81,7 +87,8 @@ set_target_properties(OpenCLlib PROPERTIES
 add_library(${CMAKE_PROJECT_NAME} SHARED ${ofxSample_SOURCES} ${ofxSample_HEADERS})
 
 # set_property(TARGET OpenCLlib PROPERTY IMPORTED_LOCATION "${OpenCL_LIBRARY}")
-target_link_libraries(${CMAKE_PROJECT_NAME} ofxLib OpenCLlib)
+# target_link_libraries(${CMAKE_PROJECT_NAME} ofxLib OpenCLlib OpenGL32)
+target_link_libraries(${CMAKE_PROJECT_NAME} ofxLib OpenCLlib OpenGL32)
 
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
     Support/include/
@@ -94,8 +101,9 @@ target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
 )
 
 
-# using OpenCL we could just turn off cuda (see #define USE_CUDA)
 # error LNK2019: "void __cdecl RunCudaKernel
+# using OpenCL we could just turn off cuda (see #define USE_CUDA) : 
+# the resolve preference should be changed manually to use openCl instead of cuda !
 # https://www.liftgammagain.com/forum/index.php?threads/dctls-and-resolve-ofx.7046/
 # https://gist.github.com/gavinb/c993f71cf33d2354515c4452a3f8ef30
 

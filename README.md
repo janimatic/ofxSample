@@ -2,7 +2,10 @@ sample openfx plugin
 --------------------
 
 based on bmd Developper/OFX folder
-* GainPlugin didn't work
+* GainPlugin with cuda disabled
+
+* To use the OpenCL in Resolve, force to use OpenCL instead of Cuda in the preferences :
+Memory and GPU>GPU configuration>GPU processing mode > OpenCL
 
 replaced with https://github.com/AcademySoftwareFoundation/openfx/blob/main/Examples/Basic/basic.cpp
 
@@ -12,7 +15,7 @@ replaced with https://github.com/AcademySoftwareFoundation/openfx/blob/main/Exam
 
 * opencl libs for windows included (see below for linux)
 
-Openfx files, coming from bmd, might be outdated. But it seems to use the official latest 1.4, slightly modified.
+Openfx files, coming from bmd, seem to use the official latest 1.4, slightly modified.
 Copying files from https://github.com/AcademySoftwareFoundation/openfx gave me build errors
 on ofxBinary loadLibrary under windows , that didn't occur with bmd provided files.
 
