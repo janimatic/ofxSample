@@ -8,8 +8,6 @@ based on Blackmagic Resolve inlcuded examples found in Developper/OFX folder
 * To use the OpenCL in Resolve, force to use OpenCL instead of Cuda in the preferences :
 Memory and GPU>GPU configuration>GPU processing mode > OpenCL
 
-replaced with https://github.com/AcademySoftwareFoundation/openfx/blob/main/Examples/Basic/basic.cpp
-
 * cuda support is turned off (opencl on)
 
 * openfx libs included
