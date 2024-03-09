@@ -41,7 +41,7 @@ the opencl libs should be installed with :
 sudo apt install ocl-icd-opencl-dev
 ```
 
-#### 2. Download the XClip source code
+#### 2. Download the ofxSample  source code
 You can download source code archives from [GitHub](https://www.github.com/janimatic/ofxSample) or use `git` to clone the repository.
 ```
 > git clone https://www.github.com/janimatic/ofxSample
@@ -65,6 +65,7 @@ Cloning into 'ofxSample'...
 
 Github worflows
 ---------------
+![cmake linux workflow](https://github.com/janimatic/ofxSample/actions/workflows/cmake-linux-platform.yml/badge.svg)
+![cmake windows workflow](https://github.com/janimatic/ofxSample/actions/workflows/cmake-windows-platform.yml/badge.svg)
 
-![cmake linux workflow](https://github.com/janimatic/xclip/actions/workflows/cmake-linux-platform.yml/badge.svg)
-![cmake windows workflow](https://github.com/janimatic/xclip/actions/workflows/cmake-windows-platform.yml/badge.svg)
+I couldn't make the macos 12 workflow to build so i disabled it... please contribute if you can.
