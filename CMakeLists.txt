@@ -4,6 +4,16 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 configure_file(ofxSampleConfig.h.in ofxSampleConfig.h)
 
+if(UNIX AND NOT APPLE)
+# /usr/bin/ld: libofxLib.a(ofxsCore.cpp.o): relocation R_X86_64_PC32 against symbol `_ZN3OFX9Exception5SuiteD1Ev' can not be used when making a shared object; recompile with -fPIC
+# https://stackoverflow.com/questions/5311515/gcc-fpic-option
+# target_compile_options(${CMAKE_PROJECT_NAME} PUBLIC -fPIC)
+# target_link_options(${CMAKE_PROJECT_NAME} PUBLIC -fPIC)
+# add_compile_options(-fPIC)
+# https://stackoverflow.com/questions/38296756/what-is-the-idiomatic-way-in-cmake-to-add-the-fpic-compiler-option
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+endif()
+
 file(GLOB ofxLib_HEADERS
     Support/include/*.h
     OpenFX-1.4/include/*.h
@@ -99,15 +109,6 @@ target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
                            "${PROJECT_BINARY_DIR}"
 )
 
-if(UNIX AND NOT APPLE)
-# /usr/bin/ld: libofxLib.a(ofxsCore.cpp.o): relocation R_X86_64_PC32 against symbol `_ZN3OFX9Exception5SuiteD1Ev' can not be used when making a shared object; recompile with -fPIC
-# https://stackoverflow.com/questions/5311515/gcc-fpic-option
-# target_compile_options(${CMAKE_PROJECT_NAME} PUBLIC -fPIC)
-# target_link_options(${CMAKE_PROJECT_NAME} PUBLIC -fPIC)
-# add_compile_options(-fPIC)
-# https://stackoverflow.com/questions/38296756/what-is-the-idiomatic-way-in-cmake-to-add-the-fpic-compiler-option
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-endif()
 
 # error LNK2019: "void __cdecl RunCudaKernel
 # using OpenCL we could just turn off cuda (see #define USE_CUDA) : 
