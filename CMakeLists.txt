@@ -41,13 +41,16 @@ file(GLOB ofxSample_SOURCES
 set(OpenCL_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/OpenCL/include)
 message( "OpenCL_INCLUDE_DIR : ${OpenCL_INCLUDE_DIR}")
 if(WIN32)
+# for Windows operating system in general
 set(OpenCL_LIBRARY ${PROJECT_SOURCE_DIR}/OpenCL/lib/x86_64/OpenCL.lib)
 message( "OpenCL_LIBRARY : ${OpenCL_LIBRARY}")
-elseif(UNIX)
+elseif(UNIX AND NOT APPLE)
+# for Linux, BSD, Solaris, Minix
 # set(OpenCL_LIBRARY ${PROJECT_SOURCE_DIR}/OpenCL/lib/x86_64/libOpenCL.so)
 set(OpenCL_LIBRARY /usr/lib/x86_64-linux-gnu/libOpenCL.so)
 message( "OpenCL_LIBRARY : ${OpenCL_LIBRARY}")
 elseif(APPLE)
+# for MacOS X or iOS, watchOS, tvOS (since 3.10.3)
 # set(OpenCL_LIBRARY ${PROJECT_SOURCE_DIR}/OpenCL/lib/x86_64/libOpenCL.so)
  # For compilers to find ocl-icd you may need to set:
   # export LDFLAGS="-L/usr/local/opt/ocl-icd/lib"
