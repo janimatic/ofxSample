@@ -82,8 +82,10 @@ Cloning into 'ofxSample'...
 
 Github worflows
 ---------------
-![cmake linux workflow](https://github.com/janimatic/ofxSample/actions/workflows/cmake-linux-platform.yml/badge.svg)
-![cmake windows workflow](https://github.com/janimatic/ofxSample/actions/workflows/cmake-windows-platform.yml/badge.svg)
-![cmake mac workflow](https://github.com/janimatic/ofxSample/actions/workflows/cmake-mac-platform.yml/badge.svg)
+
+<img src="https://github.com/janimatic/ofxSample/actions/workflows/cmake-linux-platform.yml/badge.svg?branch=main&kill_cache=1" />
+<img src="https://github.com/janimatic/ofxSample/actions/workflows/cmake-windows-platform.yml/badge.svg?branch=main&kill_cache=1" />
+<img src="https://github.com/janimatic/ofxSample/actions/workflows/cmake-mac-platform.yml/badge.svg?branch=main&kill_cache=1" />
+
 
 I couldn't make the macos 12 workflow to build so i disabled it... please contribute if you can...
