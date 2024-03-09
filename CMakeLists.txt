@@ -87,7 +87,6 @@ set_target_properties(OpenCLlib PROPERTIES
 add_library(${CMAKE_PROJECT_NAME} SHARED ${ofxSample_SOURCES} ${ofxSample_HEADERS})
 
 # set_property(TARGET OpenCLlib PROPERTY IMPORTED_LOCATION "${OpenCL_LIBRARY}")
-# target_link_libraries(${CMAKE_PROJECT_NAME} ofxLib OpenCLlib OpenGL32)
 target_link_libraries(${CMAKE_PROJECT_NAME} ofxLib OpenCLlib)
 
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
