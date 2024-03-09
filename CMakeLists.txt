@@ -104,7 +104,9 @@ if(UNIX AND NOT APPLE)
 # https://stackoverflow.com/questions/5311515/gcc-fpic-option
 # target_compile_options(${CMAKE_PROJECT_NAME} PUBLIC -fPIC)
 # target_link_options(${CMAKE_PROJECT_NAME} PUBLIC -fPIC)
-add_compile_options(-fPIC)
+# add_compile_options(-fPIC)
+# https://stackoverflow.com/questions/38296756/what-is-the-idiomatic-way-in-cmake-to-add-the-fpic-compiler-option
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 endif()
 
 # error LNK2019: "void __cdecl RunCudaKernel
